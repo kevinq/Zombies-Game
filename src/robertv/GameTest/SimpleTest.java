@@ -2,6 +2,11 @@ package robertv.GameTest;
 
 import java.util.*;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -76,7 +81,7 @@ public class SimpleTest extends BasicGame {
     	/*
     	 * for getting the GUI info to display
     	 */
-    	ufont = new UnicodeFont("/assets/Menlo.ttc", 20, false, false);
+    	ufont = new UnicodeFont("/assets/mensch.ttf", 20, false, false);
     	ufont.getEffects().add(new ColorEffect(java.awt.Color.BLACK));
     	ufont.addGlyphs("0123456789");
     	ufont.loadGlyphs();
