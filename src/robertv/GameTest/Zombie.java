@@ -59,7 +59,6 @@ public class Zombie extends Entity {
 		}
 		return null;
 	}
-
 	
 	
 	public void render(int xp, int yp) {

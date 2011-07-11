@@ -1,6 +1,7 @@
 package robertv.GameTest;
 
 import java.util.*;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.*;
 
@@ -80,21 +81,14 @@ public class Entity {
 		return aabb;
 	}
 
-	
 	public  Entity collisionCheck(ArrayList<? extends Entity> checklist) {
 		for(int i=0;i<checklist.size();i++) {
 			if(this.aabb.intersects(checklist.get(i).aabb)) {
-				if(this == checklist.get(i)) {
-					break;
-					//sometimes books collide with themselves
-				}
+				//Selective stop method
 				int dx = this.xCoord - checklist.get(i).xCoord;
 				int dy = this.yCoord - checklist.get(i).yCoord;
 				
 					if(dx == 0 && dy == 0) {
-						//this is needed due to some bug,
-						//in which, when coming from the left,
-						//a player's coordinate would be set wrong.
 						dx -= 1;
 					}
 
@@ -110,6 +104,7 @@ public class Entity {
 		}
 		return null;
 	}
+	
 	
 	public boolean collisionTrue(Entity en, ArrayList<Entity> elist) {
 		return false;
