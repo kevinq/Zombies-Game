@@ -84,6 +84,9 @@ public class Entity {
 	public  Entity collisionCheck(ArrayList<? extends Entity> checklist) {
 		for(int i=0;i<checklist.size();i++) {
 			if(this.aabb.intersects(checklist.get(i).aabb)) {
+				if(this == checklist.get(i)) {
+					return null;
+				}
 				//Selective stop method
 				int dx = this.xCoord - checklist.get(i).xCoord;
 				int dy = this.yCoord - checklist.get(i).yCoord;

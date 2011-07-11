@@ -183,18 +183,21 @@ public class Player extends Entity {
 				dx = Math.abs(dx);
 				dy = Math.abs(dy);
 				
+				dx+=2;
+				dy+=2;
+				
 				if(velocity.x > 0) {
 					position.x = position.x + velocity.x - dx;
 					aabb.setX(aabb.getX()-dx);
-				}else
+				}
 				if(velocity.x < 0) {
 					position.x = position.x + velocity.x + dx;
 					aabb.setX(aabb.getX()+dx);
-				}else
+				}
 				if(velocity.y > 0) {
 					position.y = position.y + velocity.y - dy;
 					aabb.setY(aabb.getY()+dy);
-				}else
+				}
 				if(velocity.y < 0) {
 					position.y = position.y + velocity.y + dy;
 					aabb.setY(aabb.getY()-dy);
