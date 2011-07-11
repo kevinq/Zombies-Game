@@ -71,16 +71,16 @@ public class Player extends Entity {
 	public void startMoving(int direction) {
 		switch(setFacing(direction)) {
 		case NORTH :
-    		this.velocity.add((new Vector(0, 1)).scalarMultiply(this.speed));
+    		this.velocity = ((new Vector(0, 1)).scalarMultiply(this.speed));
 		break;
 		case SOUTH :
-    		this.velocity.add((new Vector(0, -1)).scalarMultiply(this.speed));
+    		this.velocity = ((new Vector(0, -1)).scalarMultiply(this.speed));
 		break;
 		case EAST :
-    		this.velocity.add((new Vector(-1, 0)).scalarMultiply(this.speed));
+    		this.velocity = ((new Vector(-1, 0)).scalarMultiply(this.speed));
 		break;
 		case WEST :
-    		this.velocity.add((new Vector(1, 0)).scalarMultiply(this.speed));
+    		this.velocity = ((new Vector(1, 0)).scalarMultiply(this.speed));
 		break;
 		}
 	}
