@@ -278,19 +278,19 @@ public class SimpleTest extends BasicGame {
     		}//end if statement
     		
     		ArrayList<Bookshelf> colliders = gameSpace.getSurroundingShelves(e.yCoord, e.xCoord);
-    		ArrayList<Entity> collidersE = nearbyEntities(e.xCoord, e.yCoord);
+    		//ArrayList<Entity> collidersE = nearbyEntities(e.xCoord, e.yCoord);
     		Entity en = e.collisionCheck(colliders);
-    		Entity entwo = e.collisionCheck(collidersE);
+    		//Entity entwo = e.collisionCheck(collidersE);
     		if(en != null) {
     			if(e.collisionTrue(en, entities)) {
     				break;
     			}
-    		}
+    		}/*
     		if(entwo != null) {
     			if(e.collisionTrue(entwo, entities)) {
     				break;
     			}
-    		}
+    		}*/
     		if(e.xCoord > 33 || e.xCoord < -1 || e.yCoord < -1 || e.yCoord > (rachel.yCoord + 45)) {
     			entities.remove(e); // went off screen
     			break;

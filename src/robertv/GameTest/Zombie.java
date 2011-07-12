@@ -36,7 +36,7 @@ public class Zombie extends Entity {
 	 * but I might want it to be different eventually
 	 * 
 	 */
-	public  Entity collisionCheck(ArrayList<? extends Entity> checklist) {
+/*	public  Entity collisionCheck(ArrayList<? extends Entity> checklist) {
 		for(int i=0;i<checklist.size();i++) {
 			if(this.aabb.intersects(checklist.get(i).aabb)) {
 				//Selective stop method
@@ -59,7 +59,7 @@ public class Zombie extends Entity {
 		}
 		return null;
 	}
-	
+*/	
 	
 	public void render(int xp, int yp) {
 			anim[facing].draw(xp+(int)position.x, yp-(int)position.y);
