@@ -123,22 +123,25 @@ public class Entity {
 		for(int i=0;i<checklist.size();i++) {
 			if(this.aabb.intersects(checklist.get(i).aabb)) {
 				Entity that = checklist.get(i);
+				if(this == that) {
+					return null;
+				}
 				int dx = (int)(Math.abs(this.aabb.getCenterX() - that.aabb.getCenterX()) - (this.aabb.getWidth()/2 + that.aabb.getWidth()/2));
 				int dy = (int)(Math.abs(this.aabb.getCenterY() - that.aabb.getCenterY()) - (this.aabb.getHeight()/2 + that.aabb.getHeight()/2));
 				
 				dx = Math.abs(dx);
 				dy = Math.abs(dy);
 
-				if(velocity.x > 0) {
+				if(velocity.x > 0 && dx <= dy) {
 					position.x -= dx;
 				}else
-				if(velocity.x < 0) {
+				if(velocity.x < 0 && dx <= dy) {
 					position.x += dx;
 				}else
-				if(velocity.y > 0) {
+				if(velocity.y > 0 && dy <= dx) {
 					position.y -= dy;
 				}else
-				if(velocity.y < 0) {
+				if(velocity.y < 0 && dy <= dx) {
 					position.y += dy;
 				}				
 				return that;
