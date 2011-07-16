@@ -1,6 +1,7 @@
 package robertv.GameTest;
 
 import java.util.*;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.*;
 
@@ -79,22 +80,18 @@ public class Entity {
 		aabb.setBounds(x, y, width, height);
 		return aabb;
 	}
-
 	
-	public  Entity collisionCheck(ArrayList<? extends Entity> checklist) {
+/*	public  Entity collisionCheck(ArrayList<? extends Entity> checklist) {
 		for(int i=0;i<checklist.size();i++) {
 			if(this.aabb.intersects(checklist.get(i).aabb)) {
 				if(this == checklist.get(i)) {
-					break;
-					//sometimes books collide with themselves
+					return null;
 				}
+				//Selective stop method
 				int dx = this.xCoord - checklist.get(i).xCoord;
 				int dy = this.yCoord - checklist.get(i).yCoord;
 				
 					if(dx == 0 && dy == 0) {
-						//this is needed due to some bug,
-						//in which, when coming from the left,
-						//a player's coordinate would be set wrong.
 						dx -= 1;
 					}
 
@@ -110,6 +107,49 @@ public class Entity {
 		}
 		return null;
 	}
+*/	
+	public  Entity collisionCheck(ArrayList<? extends Entity> checklist) {
+		
+		if(velocity.x > speed || velocity.x < -speed) {
+			velocity.x /= Math.abs(velocity.x);
+			velocity.x *= speed;
+		}
+		if(velocity.y > speed || velocity.y < -speed) {
+			velocity.y /= Math.abs(velocity.y);
+			velocity.y *= speed;
+		}
+
+		
+		for(int i=0;i<checklist.size();i++) {
+			if(this.aabb.intersects(checklist.get(i).aabb)) {
+				Entity that = checklist.get(i);
+				if(this == that) {
+					return null;
+				}
+				int dx = (int)(Math.abs(this.aabb.getCenterX() - that.aabb.getCenterX()) - (this.aabb.getWidth()/2 + that.aabb.getWidth()/2));
+				int dy = (int)(Math.abs(this.aabb.getCenterY() - that.aabb.getCenterY()) - (this.aabb.getHeight()/2 + that.aabb.getHeight()/2));
+				
+				dx = Math.abs(dx);
+				dy = Math.abs(dy);
+
+				if(velocity.x > 0 && dx <= dy) {
+					position.x -= dx;
+				}else
+				if(velocity.x < 0 && dx <= dy) {
+					position.x += dx;
+				}else
+				if(velocity.y > 0 && dy <= dx) {
+					position.y -= dy;
+				}else
+				if(velocity.y < 0 && dy <= dx) {
+					position.y += dy;
+				}				
+				return that;
+			}
+		}
+		return null;
+	}
+
 	
 	public boolean collisionTrue(Entity en, ArrayList<Entity> elist) {
 		return false;

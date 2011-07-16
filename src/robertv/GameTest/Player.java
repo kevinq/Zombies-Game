@@ -71,16 +71,16 @@ public class Player extends Entity {
 	public void startMoving(int direction) {
 		switch(setFacing(direction)) {
 		case NORTH :
-    		this.velocity.add((new Vector(0, 1)).scalarMultiply(this.speed));
+    		this.velocity = ((new Vector(0, 1)).scalarMultiply(this.speed));
 		break;
 		case SOUTH :
-    		this.velocity.add((new Vector(0, -1)).scalarMultiply(this.speed));
+    		this.velocity = ((new Vector(0, -1)).scalarMultiply(this.speed));
 		break;
 		case EAST :
-    		this.velocity.add((new Vector(-1, 0)).scalarMultiply(this.speed));
+    		this.velocity = ((new Vector(-1, 0)).scalarMultiply(this.speed));
 		break;
 		case WEST :
-    		this.velocity.add((new Vector(1, 0)).scalarMultiply(this.speed));
+    		this.velocity = ((new Vector(1, 0)).scalarMultiply(this.speed));
 		break;
 		}
 	}
@@ -123,8 +123,6 @@ public class Player extends Entity {
 	 * 
 	 */
 	public void update() {
-		ArrayList<Bookshelf> collisions = map.getSurroundingShelves(yCoord, xCoord);
-		collisionCheck(collisions);
 		
 		//clamp the velocity so as not to exceed speed
 		//not certain how necessary this is.
@@ -136,6 +134,12 @@ public class Player extends Entity {
 			velocity.y /= Math.abs(velocity.y);
 			velocity.y *= speed;
 		}
+		
+		ArrayList<Bookshelf> collisions = map.getSurroundingShelves(yCoord, xCoord);
+		if(collisionCheck(collisions) != null) {
+			return;
+		}
+
 				
 		position.add(velocity);
 		
@@ -164,6 +168,48 @@ public class Player extends Entity {
 		}
 
 	}
+	
+	public  Entity collisionCheck(ArrayList<? extends Entity> checklist) {
+		Rectangle oldaabb = new Rectangle(0,0,0,0);
+		oldaabb.setBounds(aabb);
+		aabb.setBounds(aabb.getX()+(float)velocity.x, aabb.getY()-(float)velocity.y, aabb.getWidth(), aabb.getHeight());
+		
+		for(int i=0;i<checklist.size();i++) {
+			if(this.aabb.intersects(checklist.get(i).aabb)) {
+				Entity that = checklist.get(i);
+				int dx = (int)(Math.abs(this.aabb.getCenterX() - that.aabb.getCenterX()) - (this.aabb.getWidth()/2 + that.aabb.getWidth()/2));
+				int dy = (int)(Math.abs(this.aabb.getCenterY() - that.aabb.getCenterY()) - (this.aabb.getHeight()/2 + that.aabb.getHeight()/2));
+				
+				dx = Math.abs(dx);
+				dy = Math.abs(dy);
+				
+				dx+=2;
+				dy+=2;
+				
+				if(velocity.x > 0) {
+					position.x = position.x + velocity.x - dx;
+					aabb.setX(aabb.getX()-dx);
+				}
+				if(velocity.x < 0) {
+					position.x = position.x + velocity.x + dx;
+					aabb.setX(aabb.getX()+dx);
+				}
+				if(velocity.y > 0) {
+					position.y = position.y + velocity.y - dy;
+					aabb.setY(aabb.getY()+dy);
+				}
+				if(velocity.y < 0) {
+					position.y = position.y + velocity.y + dy;
+					aabb.setY(aabb.getY()-dy);
+				}
+			
+				return that;
+			}
+		}
+		aabb.setBounds(oldaabb);
+		return null;
+	}
+
 	
 	public void render(int xp, int yp) {
 		if(velocity.magnitude() == 0) {
