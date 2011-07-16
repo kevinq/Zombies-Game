@@ -21,6 +21,7 @@ public class Player extends Entity {
 	
 	//private Book[] inventory;
 	private int ammo;
+	private int health;
 	
 	public Player(Map m) {
 		xCoord = 16;
@@ -39,6 +40,8 @@ public class Player extends Entity {
 		
 		ammo = 0;
 		//inventory = new Book[10];
+		
+		health = 100;
 	}
 	
 	public int setFacing(int direction) {
@@ -64,6 +67,10 @@ public class Player extends Entity {
 	
 	public int getAmmo() {
 		return ammo;
+	}
+	
+	public int getHealth() {
+		return health;
 	}
 	
 	
@@ -170,6 +177,7 @@ public class Player extends Entity {
 	}
 	
 	public  Entity collisionCheck(ArrayList<? extends Entity> checklist) {
+		
 		Rectangle oldaabb = new Rectangle(0,0,0,0);
 		oldaabb.setBounds(aabb);
 		aabb.setBounds(aabb.getX()+(float)velocity.x, aabb.getY()-(float)velocity.y, aabb.getWidth(), aabb.getHeight());
@@ -220,5 +228,14 @@ public class Player extends Entity {
 		}
 	}
 	
-	
+	@Override
+	public boolean collisionTrue(Entity en, ArrayList<Entity> elist) {
+		if (en instanceof Zombie){
+			health = health - 10;
+			System.out.println("Collision with zombie detected!");
+			return true;
+		}
+		System.out.println("player collision true reached!");
+		return false;
+	}
 }
