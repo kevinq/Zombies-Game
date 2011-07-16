@@ -1,4 +1,6 @@
 /bin/robertv/*
 .DS_Store
 *.log 
+bin/
+hs_err*
 

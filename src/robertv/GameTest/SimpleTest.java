@@ -131,7 +131,9 @@ public class SimpleTest extends BasicGame {
     	}
     }
    
-    ///*
+    /**
+     * This method captures key presses from the keyboard
+     */
     @Override
     public void keyPressed(int key, char c) {
     	switch (key) {
@@ -143,12 +145,14 @@ public class SimpleTest extends BasicGame {
     	break;
     	case Input.KEY_RIGHT : rachel.startMoving(Player.WEST);
     	break;
+    	// 'A' key used for taking a book
     	case Input.KEY_A :
     		Bookshelf check = gameSpace.getSpecificShelf(rachel.xCoord - 1, rachel.yCoord, 0, 1);
     		if(rachel.isFacing(Player.NORTH) && (check != null)) {
     			rachel.takeBook(check);
     		}
     	break;
+    	// 'S' key used for throwing book
     	case Input.KEY_S :
     		rachel.fireBook(entities);
     	}
@@ -250,8 +254,9 @@ public class SimpleTest extends BasicGame {
     	rachel.render(480, 336);
     	
     	GUI.draw(0,672-(32*5));
-    	ufont.drawString(96+30, 672-(4*32)+5, ""+rachel.getAmmo());
-    	ufont.drawString((32*12)+30, 672-(4*32)+5, ""+ maxHeight);
+    	ufont.drawString(96+30, 672-(4*32)+4, ""+rachel.getAmmo());
+    	ufont.drawString((32*12)+25, 672-(4*32)+4, ""+ maxHeight);
+    	ufont.drawString(96+170, 672-(4*32)+4, "" +0);
 
     	
     	//check collisions
