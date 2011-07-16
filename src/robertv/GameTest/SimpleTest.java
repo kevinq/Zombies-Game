@@ -256,32 +256,6 @@ public class SimpleTest extends BasicGame {
     	
     	//check collisions
     	for(Entity e : entities) {
-    		if(e instanceof Zombie) {
-    			e.velocity = Vector.getDirectionVector(e.xCoord, e.yCoord, rachel.xCoord, rachel.yCoord);
-    			/*
-    			 * zombie velocity is constrained to only go in
-    			 * one direction at once.
-    			 * it also makes sure it's facing in the right direction.
-    			 */
-    			if(Math.abs(e.velocity.x) > Math.abs(e.velocity.y)) {
-    				e.velocity.y = 0;
-    				if(e.velocity.x > 0) {
-    					((Zombie) e).facing = Player.WEST;
-    				}
-    				if(e.velocity.x < 0) {
-    					((Zombie) e).facing = Player.EAST;
-    				}
-    			}else {
-    				if(e.velocity.y > 0) {
-    					((Zombie) e).facing = Player.NORTH;
-    				}
-    				if(e.velocity.y < 0) {
-    					((Zombie) e).facing = Player.SOUTH;
-    				}
-    				e.velocity.x = 0;
-    			}
-    		}//end if statement
-    		
     		ArrayList<Bookshelf> colliders = gameSpace.getSurroundingShelves(e.yCoord, e.xCoord);
     		ArrayList<Entity> collidersE = nearbyEntities(e.xCoord, e.yCoord);
     		Entity en = e.collisionCheck(colliders);
@@ -300,6 +274,10 @@ public class SimpleTest extends BasicGame {
     			entities.remove(e); // went off screen
     			break;
     		}
+    		if(e instanceof Zombie) {
+    			e.velocity = Vector.getDirectionVector(e.xCoord, e.yCoord, rachel.xCoord, rachel.yCoord);
+    		}    		
+
     			e.update();
     	}
 
