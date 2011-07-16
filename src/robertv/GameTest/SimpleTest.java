@@ -53,10 +53,12 @@ public class SimpleTest extends BasicGame {
 	 * Scoring Variables
 	 */
 	int maxHeight;
+	public static int ZombiesKilled;
 	
     public SimpleTest() {
         super("SimpleTest");
         frame = 0;
+        ZombiesKilled = 0;
     }
     
     @Override
@@ -256,7 +258,7 @@ public class SimpleTest extends BasicGame {
     	GUI.draw(0,672-(32*5));
     	ufont.drawString(96+30, 672-(4*32)+4, ""+rachel.getAmmo());
     	ufont.drawString((32*12)+25, 672-(4*32)+4, ""+ maxHeight);
-    	ufont.drawString(96+170, 672-(4*32)+4, "" +0);
+    	ufont.drawString(96+170, 672-(4*32)+4, "" + ZombiesKilled);
 
     	
     	//check collisions
