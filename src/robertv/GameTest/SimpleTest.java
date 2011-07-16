@@ -47,6 +47,8 @@ public class SimpleTest extends BasicGame {
 	
 	UnicodeFont ufont; //for printing info to the GUI
 	
+	UnicodeFont uFont2; // For messages
+	
 	Input keyboard;
 	
 	/*
@@ -54,9 +56,10 @@ public class SimpleTest extends BasicGame {
 	 */
 	int maxHeight;
 	public static int ZombiesKilled;
+	private final int SCORE_VAR_HEIGHT = 672-(4*32)+3;
 	
     public SimpleTest() {
-        super("SimpleTest");
+        super("Zombies Game. SHOVE THIS BOOK UP YOUR ASS MUTHAFUCKA!!!!!111");
         frame = 0;
         ZombiesKilled = 0;
     }
@@ -83,10 +86,16 @@ public class SimpleTest extends BasicGame {
     	/*
     	 * for getting the GUI info to display
     	 */
-    	ufont = new UnicodeFont("/assets/mensch.ttf", 20, false, false);
+    	ufont = new UnicodeFont("/assets/mensch.ttf", 22, false, false);
     	ufont.getEffects().add(new ColorEffect(java.awt.Color.BLACK));
     	ufont.addGlyphs("0123456789");
     	ufont.loadGlyphs();
+    	
+    	//For custom message test
+    	uFont2 = new UnicodeFont("/assets/mensch.ttf", 22, false, false);
+    	uFont2.getEffects().add(new ColorEffect(java.awt.Color.WHITE));
+    	uFont2.addGlyphs("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.'!");
+    	uFont2.loadGlyphs();
     	
     	
     	/*
@@ -256,11 +265,12 @@ public class SimpleTest extends BasicGame {
     	rachel.render(480, 336);
     	
     	GUI.draw(0,672-(32*5));
-    	ufont.drawString(96+30, 672-(4*32)+4, ""+rachel.getAmmo());
-    	ufont.drawString((32*12)+25, 672-(4*32)+4, ""+ maxHeight);
-    	ufont.drawString(96+170, 672-(4*32)+4, "" + ZombiesKilled);
+    	ufont.drawString(96+21, SCORE_VAR_HEIGHT, "" + rachel.getAmmo());
+    	ufont.drawString(96+101, SCORE_VAR_HEIGHT, "" + ZombiesKilled);
+    	ufont.drawString(96+180, SCORE_VAR_HEIGHT, "" + rachel.getHealth());
+    	ufont.drawString((32*12)+30, SCORE_VAR_HEIGHT, "" + maxHeight);
+    	uFont2.drawString(500, SCORE_VAR_HEIGHT, "Don't get hit.");
 
-    	
     	//check collisions
     	for(Entity e : entities) {
     		ArrayList<Bookshelf> colliders = gameSpace.getSurroundingShelves(e.yCoord, e.xCoord);
