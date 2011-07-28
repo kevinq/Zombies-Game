@@ -58,6 +58,7 @@ public class Book extends Entity{
 		if(collider instanceof Zombie) {
 			elist.remove(this);
 			elist.remove(collider);
+			SimpleTest.ZombiesKilled++;
 			return true;
 		}
 		if(collider instanceof Bookshelf) {

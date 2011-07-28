@@ -2,6 +2,11 @@ package robertv.GameTest;
 
 import java.util.*;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -42,16 +47,21 @@ public class SimpleTest extends BasicGame {
 	
 	UnicodeFont ufont; //for printing info to the GUI
 	
+	UnicodeFont uFont2; // For messages
+	
 	Input keyboard;
 	
 	/*
 	 * Scoring Variables
 	 */
 	int maxHeight;
+	public static int ZombiesKilled;
+	private final int SCORE_VAR_HEIGHT = 672-(4*32)+3;
 	
     public SimpleTest() {
-        super("SimpleTest");
+        super("Zombies Game. SHOVE THIS BOOK UP YOUR ASS MUTHAFUCKA!!!!!111");
         frame = 0;
+        ZombiesKilled = 0;
     }
     
     @Override
@@ -76,10 +86,16 @@ public class SimpleTest extends BasicGame {
     	/*
     	 * for getting the GUI info to display
     	 */
-    	ufont = new UnicodeFont("/assets/Menlo.ttc", 20, false, false);
+    	ufont = new UnicodeFont("/assets/mensch.ttf", 22, false, false);
     	ufont.getEffects().add(new ColorEffect(java.awt.Color.BLACK));
     	ufont.addGlyphs("0123456789");
     	ufont.loadGlyphs();
+    	
+    	//For custom message test
+    	uFont2 = new UnicodeFont("/assets/mensch.ttf", 22, false, false);
+    	uFont2.getEffects().add(new ColorEffect(java.awt.Color.WHITE));
+    	uFont2.addGlyphs("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.'!");
+    	uFont2.loadGlyphs();
     	
     	
     	/*
@@ -126,7 +142,9 @@ public class SimpleTest extends BasicGame {
     	}
     }
    
-    ///*
+    /**
+     * This method captures key presses from the keyboard
+     */
     @Override
     public void keyPressed(int key, char c) {
     	switch (key) {
@@ -138,12 +156,14 @@ public class SimpleTest extends BasicGame {
     	break;
     	case Input.KEY_RIGHT : rachel.startMoving(Player.WEST);
     	break;
+    	// 'A' key used for taking a book
     	case Input.KEY_A :
     		Bookshelf check = gameSpace.getSpecificShelf(rachel.xCoord - 1, rachel.yCoord, 0, 1);
     		if(rachel.isFacing(Player.NORTH) && (check != null)) {
     			rachel.takeBook(check);
     		}
     	break;
+    	// 'S' key used for throwing book
     	case Input.KEY_S :
     		rachel.fireBook(entities);
     	}
@@ -245,10 +265,12 @@ public class SimpleTest extends BasicGame {
     	rachel.render(480, 336);
     	
     	GUI.draw(0,672-(32*5));
-    	ufont.drawString(96+30, 672-(4*32)+5, ""+rachel.getAmmo());
-    	ufont.drawString((32*12)+30, 672-(4*32)+5, ""+ maxHeight);
+    	ufont.drawString(96+21, SCORE_VAR_HEIGHT, "" + rachel.getAmmo());
+    	ufont.drawString(96+101, SCORE_VAR_HEIGHT, "" + ZombiesKilled);
+    	ufont.drawString(96+180, SCORE_VAR_HEIGHT, "" + rachel.getHealth());
+    	ufont.drawString((32*12)+30, SCORE_VAR_HEIGHT, "" + maxHeight);
+    	uFont2.drawString(500, SCORE_VAR_HEIGHT, "Don't get hit.");
 
-    	
     	//check collisions
     	for(Entity e : entities) {
     		ArrayList<Bookshelf> colliders = gameSpace.getSurroundingShelves(e.yCoord, e.xCoord);

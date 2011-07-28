@@ -152,6 +152,9 @@ public class Entity {
 
 	
 	public boolean collisionTrue(Entity en, ArrayList<Entity> elist) {
+		if (en instanceof Player){
+			System.out.println("Player collision detected.");
+		}
 		return false;
 	}
 }
