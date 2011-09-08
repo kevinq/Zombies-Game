@@ -273,6 +273,7 @@ public class SimpleTest extends BasicGame {
 
     	//check collisions
     	for(Entity e : entities) {
+
     		ArrayList<Bookshelf> colliders = gameSpace.getSurroundingShelves(e.yCoord, e.xCoord);
     		ArrayList<Entity> collidersE = nearbyEntities(e.xCoord, e.yCoord);
     		Entity en = e.collisionCheck(colliders);
@@ -294,8 +295,8 @@ public class SimpleTest extends BasicGame {
     		if(e instanceof Zombie) {
     			e.velocity = Vector.getDirectionVector(e.xCoord, e.yCoord, rachel.xCoord, rachel.yCoord);
     		}    		
+			e.update();
 
-    			e.update();
     	}
 
     }//end of render method
