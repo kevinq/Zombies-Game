@@ -1,9 +1,17 @@
 package robertv.GameTest;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.*;
 import org.newdawn.slick.Animation;
 import java.util.*;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.openal.AL;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.openal.SoundStore;
+import org.newdawn.slick.util.ResourceLoader;
 
 public class Player extends Entity {
 		
@@ -117,6 +125,12 @@ public class Player extends Entity {
 	public void fireBook(ArrayList<Entity> entityList) {
 		if(ammo == 0) {
 			return;
+		}
+		try {
+			Sound whoosh = new Sound("/assets/whoosh.wav");
+			whoosh.play();
+		} catch (SlickException e) {
+			e.printStackTrace();
 		}
 		Book bk = new Book(xCoord, yCoord, facing, position);
 		bk.setSprite(bookimg);
