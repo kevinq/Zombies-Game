@@ -30,9 +30,9 @@ public class SimpleTest extends BasicGame {
 	Map gameSpace;
 	ArrayList<Entity> entities;
 	//for non Bookshelf entities (Books and Zombies)
-	Player rachel;
+	static Player rachel;
 
-	/*
+	/*    
 	 * Sprites and Images
 	 */
 	Image spritesheet;
@@ -58,8 +58,10 @@ public class SimpleTest extends BasicGame {
 	public static int ZombiesKilled;
 	private final int SCORE_VAR_HEIGHT = 672-(4*32)+3;
 	
+	static GameContainer main_container; // the gamecontainer object
+	
     public SimpleTest() {
-        super("Zombies Game. SHOVE THIS BOOK UP YOUR ASS MUTHAFUCKA!!!!!111");
+        super("Zombies Game.");
         frame = 0;
         ZombiesKilled = 0;
     }
@@ -140,6 +142,9 @@ public class SimpleTest extends BasicGame {
     	if((rachel.yCoord+1) > maxHeight) {
     		maxHeight = rachel.yCoord;
     	}
+    	if (rachel.getHealth() == 0){
+    		System.out.println("You suck.");
+    	}
     }
    
     /**
@@ -184,7 +189,11 @@ public class SimpleTest extends BasicGame {
     		break;
     	case Input.KEY_RIGHT:
     		rachel.stopMoving(Player.WEST);
-    	break;
+    		break;
+    	case Input.KEY_Q:
+    		// for quitting the game 
+    		main_container.exit();
+    		break;
     	}
     }
     
@@ -314,6 +323,7 @@ public class SimpleTest extends BasicGame {
     public static void main(String[] args) {
         try {
             AppGameContainer app = new AppGameContainer(new SimpleTest());
+            main_container = app;
             app.setShowFPS(false);
             app.setVSync(true);
             app.setDisplayMode(960, 672, false); 

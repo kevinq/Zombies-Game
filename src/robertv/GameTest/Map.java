@@ -144,6 +144,13 @@ public class Map {
 		return returnarray;
 	}
 	
+	public boolean playerNear(int x, int y){
+		
+		
+		
+		return false;
+	}
+	
 	/*
 	 * similar to get surroundings. xc and yc are coordinates,
 	 * relX is the coordinate you want to check.

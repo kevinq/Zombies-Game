@@ -81,6 +81,10 @@ public class Player extends Entity {
 		return health;
 	}
 	
+	public void decreaseHealth(){
+		health = health - 1;
+	}
+	
 	
 	///*
 	public void startMoving(int direction) {
@@ -188,6 +192,7 @@ public class Player extends Entity {
 			position.y += 32.0;
 		}
 
+		
 	}
 	
 	public  Entity collisionCheck(ArrayList<? extends Entity> checklist) {
@@ -224,7 +229,7 @@ public class Player extends Entity {
 					position.y = position.y + velocity.y + dy;
 					aabb.setY(aabb.getY()-dy);
 				}
-			
+				
 				return that;
 			}
 		}

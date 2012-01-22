@@ -30,7 +30,7 @@ public class Zombie extends Entity {
 		anim = anArray;
 		return this;
 	}
-	
+
 	public void update() {
 		/*
 		 * zombie velocity is constrained to only go in
@@ -57,6 +57,10 @@ public class Zombie extends Entity {
 				this.facing = Player.SOUTH;
 			}
 			this.velocity.x = 0;
+		}
+		if (SimpleTest.rachel.xCoord == this.xCoord && SimpleTest.rachel.yCoord == this.yCoord){
+			System.out.println("ZOMBIE PLAYER COLLISION.");
+			SimpleTest.rachel.decreaseHealth();
 		}
 		super.update();
 	}
@@ -101,13 +105,25 @@ public class Zombie extends Entity {
 				}
 				if(facing == Player.SOUTH && dy <= dx) {
 					position.y += dy;
-				}				
+				}		
 				return that;
 			}
 		}
 		return null;
 	}
-
+	
+	@Override
+	public boolean collisionTrue(Entity en, ArrayList<Entity> elist) {
+		if (en instanceof Player){
+			System.out.println("Player collision detected.");
+			return true;
+		}
+		if (en instanceof Zombie){
+			System.out.println("Zombie collided with Zombie");
+			return true;
+		}
+		return false;
+	}
 	
 	public void render(int xp, int yp) {
 			anim[facing].draw(xp+(int)position.x, yp-(int)position.y);

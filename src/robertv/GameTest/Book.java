@@ -59,6 +59,7 @@ public class Book extends Entity{
 			elist.remove(this);
 			elist.remove(collider);
 			SimpleTest.ZombiesKilled++;
+			System.out.println("book collided with zombie");
 			return true;
 		}
 		if(collider instanceof Bookshelf) {
