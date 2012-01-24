@@ -167,7 +167,7 @@ public class Map {
 	 * the reason for this is because I want a row with no shelves
 	 * between all the shelves.
 	 * Also because bookshelves are two tiles high,
-	 * a row idential to the first has to be added on top.
+	 * a row identical to the first has to be added on top.
 	 */
 	private int generateRows(int num) {
 		int times = (int)Math.ceil((float)num / 3.0);
