@@ -142,9 +142,9 @@ public class SimpleTest extends BasicGame {
     	if((rachel.yCoord+1) > maxHeight) {
     		maxHeight = rachel.yCoord;
     	}
-    	if (rachel.getHealth() == 0){
-    		System.out.println("You suck.");
-    	}
+//    	if (rachel.getHealth() == 0){
+//    		System.out.println("You suck.");
+//    	}
     }
    
     /**
@@ -280,9 +280,23 @@ public class SimpleTest extends BasicGame {
     	ufont.drawString((32*12)+30, SCORE_VAR_HEIGHT, "" + maxHeight);
     	uFont2.drawString(500, SCORE_VAR_HEIGHT, "Don't get hit.");
 
+    	// check player zombie collision
+    	ArrayList<Zombie> nearbyZombies = gameSpace.getSurroundingZombie(rachel.yCoord, rachel.xCoord, entities);
+    	ArrayList<Bookshelf> nearbyShelves = gameSpace.getSurroundingShelves(rachel.yCoord, rachel.xCoord);
+    	ArrayList<Entity> nearbyPlayerStuff = new ArrayList<Entity>();
+    	nearbyPlayerStuff.addAll(nearbyZombies);
+    	nearbyPlayerStuff.addAll(nearbyShelves);
+    	for (Entity e : nearbyPlayerStuff){
+    		Entity possibleCollision = rachel.collisionCheck(nearbyPlayerStuff);
+    		if (possibleCollision != null){
+    			if (rachel.collisionTrue(possibleCollision, nearbyPlayerStuff)){
+    				break;
+    			}
+    		}
+    	}
     	//check collisions
     	for(Entity e : entities) {
-
+    		
     		ArrayList<Bookshelf> colliders = gameSpace.getSurroundingShelves(e.yCoord, e.xCoord);
     		ArrayList<Entity> collidersE = nearbyEntities(e.xCoord, e.yCoord);
     		Entity en = e.collisionCheck(colliders);

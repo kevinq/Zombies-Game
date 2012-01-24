@@ -58,10 +58,13 @@ public class Zombie extends Entity {
 			}
 			this.velocity.x = 0;
 		}
-		if (SimpleTest.rachel.xCoord == this.xCoord && SimpleTest.rachel.yCoord == this.yCoord){
-			System.out.println("ZOMBIE PLAYER COLLISION.");
-			SimpleTest.rachel.decreaseHealth();
-		}
+		// bad way to do collision detection
+//		if ((Math.abs(SimpleTest.rachel.xCoord - this.xCoord) < .2) && (Math.abs(SimpleTest.rachel.yCoord - this.yCoord) < .2)){
+//			System.out.println("ZOMBIE PLAYER COLLISION.");
+//			System.out.println("player coordinates " + SimpleTest.rachel.xCoord + "," + SimpleTest.rachel.yCoord);
+//			System.out.println("zombie coordinates " + this.xCoord + "," + this.yCoord);
+//			SimpleTest.rachel.decreaseHealth();
+//		}
 		super.update();
 	}
 	
@@ -119,7 +122,6 @@ public class Zombie extends Entity {
 			return true;
 		}
 		if (en instanceof Zombie){
-			System.out.println("Zombie collided with Zombie");
 			return true;
 		}
 		return false;

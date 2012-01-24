@@ -144,11 +144,55 @@ public class Map {
 		return returnarray;
 	}
 	
-	public boolean playerNear(int x, int y){
+	/**
+	 * Returns an arraylist containing nearby zombies
+	 * @param row the specified row 
+	 * @param column the specified column
+	 * @return an arraylist containing the nearby zombies in a 3x3 grid like the method above
+	 */
+	public ArrayList<Zombie> getSurroundingZombie(int row, int col, ArrayList<Entity> entities){
+		ArrayList<Zombie> nearbyZombies = new ArrayList<Zombie>();
+		ArrayList<Entity> allEntities = entities;
+		for (int i = 0; i < allEntities.size(); i++){
+			Entity z = allEntities.get(i);
+				if (z instanceof Zombie){
+					if (       z.isHere(col - 2 , row - 2)
+							|| z.isHere(col - 2, row - 1)
+							|| z.isHere(col - 2, row)
+							|| z.isHere(col - 2, row + 1)
+							|| z.isHere(col - 2, row + 2)
+							
+							|| z.isHere(col - 1, row - 2)
+							|| z.isHere(col - 1, row - 1)
+							|| z.isHere(col - 1, row)
+							|| z.isHere(col - 1, row + 1)
+							|| z.isHere(col - 1, row + 2)
+							
+							|| z.isHere(col , row - 2)
+							|| z.isHere(col, row - 1)
+							|| z.isHere(col, row )
+							|| z.isHere(col, row + 1)
+							|| z.isHere(col, row + 2)
+							
+							|| z.isHere(col + 1, row - 2)
+							|| z.isHere(col + 1, row - 1)
+							|| z.isHere(col + 1, row)
+							|| z.isHere(col + 1, row + 1)
+							|| z.isHere(col + 1, row + 2)
+							
+							|| z.isHere(col + 2, row - 2)
+							|| z.isHere(col + 2, row - 1)
+							|| z.isHere(col + 2, row )
+							|| z.isHere(col + 2, row + 1)
+							|| z.isHere(col + 2, row + 2)
 		
-		
-		
-		return false;
+							){
+						nearbyZombies.add((Zombie)z);
+					}
+				}
+		}
+		//System.out.println("Size of nearby zombies: " + nearbyZombies.size());
+		return nearbyZombies;
 	}
 	
 	/*
