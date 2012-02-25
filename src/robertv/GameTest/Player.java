@@ -208,9 +208,6 @@ public class Player extends Entity {
 		
 		for(int i=0;i<checklist.size();i++) {
 			if(this.aabb.intersects(checklist.get(i).aabb)) {
-				if (checklist.get(i) instanceof Zombie){
-					System.out.println("Player collided with a " + checklist.get(i).getClass());
-				}
 				Entity that = checklist.get(i);
 				int dx = (int)(Math.abs(this.aabb.getCenterX() - that.aabb.getCenterX()) - (this.aabb.getWidth()/2 + that.aabb.getWidth()/2));
 				int dy = (int)(Math.abs(this.aabb.getCenterY() - that.aabb.getCenterY()) - (this.aabb.getHeight()/2 + that.aabb.getHeight()/2));
@@ -258,11 +255,9 @@ public class Player extends Entity {
 	@Override
 	public boolean collisionTrue(Entity en, ArrayList<Entity> elist) {
 		if (en instanceof Zombie){
-			health = health - 10;
-			System.out.println("Collision with zombie detected!");
+			health = health - 1;
 			return true;
 		}
-		System.out.println("player collision true reached!");
 		return false;
 	}
 
